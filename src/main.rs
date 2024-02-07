@@ -65,8 +65,19 @@ struct Rectangle {
     height: i32,
     width: i32,
 }
-fn rect_area(rect: &Rectangle) -> i32 {
-    return rect.width * rect.height;
+impl Rectangle {
+    fn rect_area(&self) -> i32 {
+        return self.width * self.height;
+    }
+    fn can_hold(&self, rect2: &Rectangle) -> bool {
+        return self.height > rect2.height && self.width > rect2.width;
+    }
+    fn Square(size: i32) -> Self {
+        Self {
+            width: size,
+            height: size,
+        }
+    }
 }
 fn main() {
     // variables()
@@ -75,6 +86,32 @@ fn main() {
         height: 30,
         width: 30,
     };
-    let area = rect_area(&rect);
-    println!("The rect area is {area}");
+    let rect2: Rectangle = Rectangle {
+        height: 29,
+        width: 29,
+    };
+    let rect3: Rectangle = Rectangle {
+        height: 31,
+        width: 31,
+    };
+    let square = Rectangle::Square(23);
+
+    println!("The rect area is {}", rect.rect_area());
+    println!(
+        "Rect 1 {}x{} can hold Rect 2 {}x {} : {}",
+        rect.width,
+        rect.height,
+        rect2.width,
+        rect2.height,
+        rect.can_hold(&rect2)
+    );
+    println!(
+        "Rect 1 {}x{} can hold Rect 3 {}x {} : {}",
+        rect.width,
+        rect.height,
+        rect3.width,
+        rect3.height,
+        rect.can_hold(&rect3)
+    );
+    println!("Square area is {} ", square.rect_area())
 }
