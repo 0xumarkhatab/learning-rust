@@ -61,7 +61,19 @@ fn geussing_game() {
         }
     }
 }
+
+struct Rectangle {
+    height: i32,
+    width: i32,
+}
+
+fn rect_area(rect: Rectangle) -> i32 {
+    return rect.width * rect.height;
+}
 fn main() {
     // variables()
-    geussing_game()
+    // geussing_game()
+    println!("The rect area is ",rect_area(
+        new Rectangle(30,30)
+    ))
 }
