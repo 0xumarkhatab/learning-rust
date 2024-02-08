@@ -1,7 +1,7 @@
 use rand::Rng;
 use std::cmp::Ordering;
+use std::collections::HashMap;
 use std::io;
-
 fn variables() {
     let mut x: i32 = 10;
     println!("value of x {x}");
@@ -79,9 +79,7 @@ impl Rectangle {
         }
     }
 }
-fn main() {
-    // variables()
-    // geussing_game()
+fn structs() {
     let rect = Rectangle {
         height: 30,
         width: 30,
@@ -114,4 +112,35 @@ fn main() {
         rect.can_hold(&rect3)
     );
     println!("Square area is {} ", square.rect_area())
+}
+
+fn mean_mode_list(v: &mut Vec<i32>) -> (i32, i32) {
+    v.sort();
+    let mean;
+
+    let mut sum = 0;
+    let mut counts: HashMap<i32, i32> = HashMap::new();
+    let mut mode: (i32, i32) = (0, 0);
+    for i in 0..v.len() {
+        sum += v[i];
+        let count = counts.entry(v[i]).or_insert(0);
+        *count += 1;
+        if *count > mode.1 {
+            mode = (v[i], *count);
+        };
+    }
+    mean = sum / v.len() as i32;
+
+    return (mean, mode.0);
+}
+fn main() {
+    // variables()
+    // geussing_game()
+    // structs()
+    println!(
+        "{:#?}",
+        mean_mode_list(&mut vec![
+            1, 2, 3, 2, 2, 3, 4, 5, 5, 5, 5, 5, 4, 5, 6, 7, 7, 5, 4, 3
+        ])
+    );
 }
